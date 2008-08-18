@@ -1,0 +1,24 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  first_name: Joe
+  last_name: Reynolds
+  address: Big Truck Lane
+  address2: #7
+  city: Charlotte
+  state: NC
+  zip: 28202
+  email: joe@notabigtruck.com
+  birthdate: <%= 36.years.ago %>
+  created_at: <%= 1.year.ago %>
+  updated_at: <%= 5.months.ago %>
+
+two:
+  first_name: Seal
+  last_name: doesntneedalastname
+  address: 123 Sycamore Ave
+  email: seal@domain.com
+  city: Irvine
+  state: CA
+  zip: 92612
+  birthdate: <%= 18.years.ago %>

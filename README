@@ -1,3 +1,11 @@
 == Faker Demo
 
 A sample rails application using faker for populating data.
+
+== Instructions
+
+# install faker from rubygems
+# run migrations
+# run faker task
+
+http://faker.rubyforge.org/
