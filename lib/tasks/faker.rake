@@ -33,15 +33,21 @@ def check_environment
 end
 
 namespace :db do
-  
+
   namespace :faker do
 
     desc "Creates some fake users"
     task :users => :environment do
 
       check_environment
-      
-      100.times do |t|
+
+      size = ENV['SIZE'].to_i
+
+      if size == 0
+        size = 100
+      end
+
+      size.times do |t|
         u = User.create(:first_name => Faker::Name.first_name,
                         :last_name  => Faker::Name.last_name,
                         :address    => Faker::Address.street_address,
@@ -49,16 +55,16 @@ namespace :db do
                         :state      => Faker::Address.us_state_abbr,
                         :zip        => Faker::Address.zip_code,
                         :email      => Faker::Internet.email,
-                        :birthdate  => random_birthday)                       
+                        :birthdate  => random_birthday)
 
          90.percent_of_the_time do
-           u.orders << Order.new(:invoice => t, 
+           u.orders << Order.new(:invoice => t,
                                  :description => Faker::Company.bs,
-                                 :created_at => random_date(Time.now.to_i, 1.month.ago.to_i))           
+                                 :created_at => random_date(Time.now.to_i, 1.month.ago.to_i))
          end
 
       end
     end
   end
-  
+
 end
