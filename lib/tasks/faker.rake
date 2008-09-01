@@ -40,14 +40,15 @@ namespace :db do
     task :users => :environment do
 
       check_environment
-
+  
       size = ENV['SIZE'].to_i
 
       if size == 0
         size = 100
       end
-
+      
       size.times do |t|
+
         u = User.create(:first_name => Faker::Name.first_name,
                         :last_name  => Faker::Name.last_name,
                         :address    => Faker::Address.street_address,
@@ -56,14 +57,47 @@ namespace :db do
                         :zip        => Faker::Address.zip_code,
                         :email      => Faker::Internet.email,
                         :birthdate  => random_birthday)
-
+      
          90.percent_of_the_time do
            u.orders << Order.new(:invoice => t,
                                  :description => Faker::Company.bs,
                                  :created_at => random_date(Time.now.to_i, 1.month.ago.to_i))
          end
+    end
+  end
 
+  namespace :faker_extension do
+    desc "Creates some fake users using ar-extensions. Faster than faker:users."
+    task :users => :environment do
+      
+      require 'ar-extensions'
+      
+      check_environment
+    
+      size = ENV['SIZE'].to_i
+
+      if size == 0
+        size = 100
       end
+
+      fields = [:first_name, :last_name, :address, :city, :state, :zip, :email, :birthdate]
+
+      names = []
+
+      size.times do |t|
+        
+        names.push([Faker::Name.first_name,
+                    Faker::Name.last_name,
+                    Faker::Address.street_address,
+                    Faker::Address.city,
+                    Faker::Address.us_state_abbr,
+                    Faker::Address.zip_code,
+                    Faker::Internet.email,
+                    random_birthday])
+      end
+      
+      User.import fields, names, :validate => false
+      
     end
   end
 

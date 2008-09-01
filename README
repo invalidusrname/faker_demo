@@ -10,3 +10,9 @@ A sample rails application using faker for populating data.
 
 http://faker.rubyforge.org/
 
+You can also import larger data sets using the ar-extensions gem.
+An example can be found in the faker_extension:user task. Although
+it is faster, the downfall with this approach is that it doesn't 
+work with associations.
+
+http://github.com/zdennis/ar-extensions/tree/master/ar-extensions
